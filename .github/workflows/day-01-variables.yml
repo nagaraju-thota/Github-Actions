@@ -26,4 +26,4 @@ jobs:
       - name: printing the step-level variable
         env:
           STEP_VAR: step-level-variable
-        run: echo "step variable: $STEP_VAR"
+        run: echo "$STEP_VAR"
