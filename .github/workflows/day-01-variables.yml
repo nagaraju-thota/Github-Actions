@@ -12,15 +12,15 @@ jobs:
       JOB_VAR: job-level-variable
     steps:
       - name: printing the repository-level variable
-        run: echo "application-name: ${{ vars.APP_NAME }}"
+        run: echo  ${{ vars.APP_NAME }}"
 
       - name: printing the workflow-level variable
-        run: echo "application version: $APP_VERSION"
+        run: echo "$APP_VERSION"
 
       - name: printing the job-level variable
-        run: echo "job variable: $JOB_VAR"
+        run: echo "$JOB_VAR"
 
       - name: printing the step-level variable
         env:
           STEP_VAR: step-level-variable
-        run: echo "step variable: $STEP_VAR"
+        run: echo "$STEP_VAR"
