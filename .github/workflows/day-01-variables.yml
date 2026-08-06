@@ -1,5 +1,7 @@
 name: day-01-variables
-on: push
+on: 
+  workflow_dispatch:
+    
 env:
   APP_VERSION: 1.0.0
 
@@ -12,9 +14,12 @@ jobs:
       - name: printing the repository-level variable
         run: echo "application-name: ${{ vars.APP_NAME }}"
 
-      - name: printing the local variable
+      - name: printing the workflow-level variable
         run: echo "application version: $APP_VERSION"
-        
+
+      - name: printing the job-level variable
+        run: echo "job variable: $JOB_VAR"
+
       - name: printing the step-level variable
         env:
           STEP_VAR: step-level-variable
