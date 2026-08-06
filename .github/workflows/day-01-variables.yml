@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: printing the repository-level variable
-        run: echo  ${{ vars.APP_NAME }}"
+        run: echo  "${{ vars.APP_NAME }}"
 
       - name: printing the workflow-level variable
         run: echo "$APP_VERSION"
