@@ -1,0 +1,18 @@
+name: Variables Demo
+
+on:
+  workflow_dispatch:
+
+env:
+  APP_NAME: MyApp
+  NODE_VERSION: 20
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Variables
+        run: |
+          echo "Application: $APP_NAME"
+          echo "Node Version: $NODE_VERSION"
