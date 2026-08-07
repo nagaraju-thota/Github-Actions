@@ -42,8 +42,8 @@ jobs:
       - name: build and push docker image to github container registry
         uses: docker/build-push-action@v5
         with:
-          context: .
           push: true
+          file: ./Day-02-docker-image-build-and-push/example/Dockerfile
           tags: ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
       - name: print the docker image name and tag
