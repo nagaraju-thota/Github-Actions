@@ -34,7 +34,7 @@ jobs:
       - name: show the repository structure
         run: |
           pwd
-          echo "Repository Structure:"
+          echo "Repository Structure"
           find .
         
       - name: build and push docker image to docker hub
