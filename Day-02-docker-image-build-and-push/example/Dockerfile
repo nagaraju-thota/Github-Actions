@@ -1,0 +1,12 @@
+#building stage
+FROM node-20-alpine as builder
+WORKDIR /app
+COPY packege.json ./
+RUN npm install
+COPY . . 
+
+# production stage
+FROM node-20-alipine 
+WORKDIR /app
+COPY --from=builder /app .
+CMD ["npm", "start"]
