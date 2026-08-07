@@ -34,8 +34,9 @@ jobs:
       - name: show the repository structure
         run: |
           pwd
-          echo "Repository Structure"
-          find .
+          ls -la
+          ls -la Day-02-docker-image-build-and-push
+          ls -la Day-02-docker-image-build-and-push/example
         
       - name: build and push docker image to docker hub
         uses: docker/build-push-action@v5
