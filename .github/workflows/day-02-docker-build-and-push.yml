@@ -30,6 +30,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: show the repository structure
+        run: |
+          pwd
+          echo "Repository Structure:"
+          find .
         
       - name: build and push docker image to docker hub
         uses: docker/build-push-action@v5
