@@ -34,8 +34,8 @@ jobs:
       - name: build and push docker image to docker hub
         uses: docker/build-push-action@v5
         with:
-          context: .
           push: true
+          file: Day-02-docker-image-build-and-push/example/Dockerfile
           tags: ${{ secrets.DOCKER_USER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
       - name: build and push docker image to github container registry
