@@ -1,39 +1,48 @@
 name: day-03-ci-pipeline for Node.js
+
 on:
-  workflow_dispatch
+  workflow_dispatch:
+
 jobs:
   building:
     runs-on: ubuntu-latest
+
     defaults:
       run:
-        working-directory: ./Day-03-ci-pipeline/example
+        working-directory: Day-03-ci-pipeline/example
+
     steps:
-      # checkout the code
+
+      # Checkout the code
       - name: Checkout the code
         uses: actions/checkout@v4
-      # setup Node.js and npm cache
+
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: ./Day-03-ci-pipeline/example/package-lock.json
-      # install dependencies
+
+      # Install dependencies
       - name: Install dependencies
-        run: npm ci
-      # run linting
+        run: npm install
+
+      # Run linting
       - name: Run linting
         run: npm run lint
-      # run tests
+
+      # Run tests
       - name: Run tests
         run: npm test
-      # build the project
+
+      # Build the project
       - name: Build the project
         run: npm run build
-      # upload the build artifacts
+
+      # Upload the build artifacts
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Day-03-ci-pipeline-artifacts
-          path: ./Day-03-ci-pipeline/example/dist
+          path: Day-03-ci-pipeline/example/dist
           retention-days: 5
