@@ -1,12 +1,12 @@
-#building stage
-FROM node-20-alpine as builder
+# building stage
+FROM node:20-alpine as builder
 WORKDIR /app
-COPY packege.json ./
+COPY package.json ./
 RUN npm install
-COPY . . 
+COPY . .
 
 # production stage
-FROM node-20-alpine 
+FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app .
 CMD ["npm", "start"]
