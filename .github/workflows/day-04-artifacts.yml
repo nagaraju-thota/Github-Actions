@@ -1,0 +1,48 @@
+name: Day 04 Artifacts
+on:
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v4
+      - name: create a build artifact
+        run: |
+          mkdir -p build/
+          cp Day-04-artifacts/example/index.html build/
+      - name: display the build artifact
+        run: |
+          echo "build artifact content:"
+          ls -la build/
+      - name: upload the build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: build/
+          retention-days: 5
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: download the build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: deploy/
+      - name: verify the downloaded artifact
+        run: |
+          echo "Downloaded artifact content:"
+          ls -la deploy/
+      - name: display the content of the downloaded artifact
+        run: |
+          echo "Content of index.html:"
+          cat deploy/index.html
+      - name: deploy the artifact
+        run: |
+          echo "Deploying the artifact..."
+          # Add your deployment commands here
+          ls -la deploy/
+          echo "Deployment completed."
