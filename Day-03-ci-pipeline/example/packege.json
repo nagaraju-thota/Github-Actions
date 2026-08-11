@@ -1,7 +1,0 @@
-{
-  "scripts": {
-    "lint": "eslint .",
-    "test": "jest",
-    "build": "shx mkdir -p dist && shx cp -r src dist/"
-  }
-}

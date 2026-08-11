@@ -1,0 +1,17 @@
+{
+  "name": "day-03-ci-pipeline",
+  "version": "1.0.0",
+  "description": "Day 3 CI Pipeline practice",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest",
+    "build": "shx mkdir -p dist && shx cp -r src dist/"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "globals": "^16.0.0",
+    "jest": "^30.0.0",
+    "shx": "^0.3.4"
+  }
+}
