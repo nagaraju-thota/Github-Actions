@@ -6,7 +6,7 @@ RUN npm install
 COPY . . 
 
 # production stage
-FROM node-20-alipine 
+FROM node-20-alpine 
 WORKDIR /app
 COPY --from=builder /app .
 CMD ["npm", "start"]
