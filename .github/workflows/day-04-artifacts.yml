@@ -11,7 +11,7 @@ jobs:
       - name: create a build artifact
         run: |
           mkdir -p build/
-          cp Day-04-artifacts/example/index.html build/
+          cp Day-04-artifact-management/example/index.html build/
       - name: display the build artifact
         run: |
           echo "build artifact content:"
