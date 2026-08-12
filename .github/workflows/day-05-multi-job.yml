@@ -1,6 +1,9 @@
 name: day-05-multi-job workflow
 on:
   workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
 jobs:
   test:
     runs-on: ubuntu-latest
