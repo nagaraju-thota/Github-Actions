@@ -1,0 +1,77 @@
+name: day-05-multi-job workflow
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v4
+      - name: set up the node environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: install dependencies
+        working-directory: Day-05-multi-job-workflow/example
+        run: npm install
+      - name: run tests
+        working-directory: Day-05-multi-job-workflow/example
+        run: npm test
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v4
+      - name: steup the node environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: install dependencies
+        working-directory: Day-05-multi-job-workflow/example
+        run: npm install
+      - name: build the application
+        working-directory: Day-05-multi-job-workflow/example
+        run: npm run build
+      - name: upload the artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: day-05-build-artifact
+          path: Day-05-multi-job-workflow/example/dist
+  docker-image-build:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v4
+      - name: download the build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: day-05-build-artifact
+          path: Day-05-multi-job-workflow/example/dist
+      - name: setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: Day-05-multi-job-workflow/example
+          file: Day-05-multi-job-workflow/example/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/day5-multi-job:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: docker-image-build
+    steps:
+      - name: deploy the appliation
+        run: |
+          echo "Deploying the application..."
+          # Add your deployment commands here
+          echo "Image: ghcr.io/${{ github.repository_owner }}/day5-multi-job:${{ github.sha }}"
+          echo "Deployment completed."

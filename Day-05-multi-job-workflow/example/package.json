@@ -1,0 +1,10 @@
+{
+  "name": "day-05-multi-job-demo",
+  "version": "1.0.0",
+  "description": "GitHub Actions multi-job workflow demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test",
+    "build": "mkdir -p dist && cp index.js dist/index.js"
+  }
+}
