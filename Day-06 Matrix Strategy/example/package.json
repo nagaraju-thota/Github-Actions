@@ -1,0 +1,9 @@
+{
+  "name": "day6-matrix-demo",
+  "version": "1.0.0",
+  "description": "GitHub Actions Matrix Strategy Demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  }
+}

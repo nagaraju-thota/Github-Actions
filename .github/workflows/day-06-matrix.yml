@@ -1,0 +1,36 @@
+name: matrix-strategy-demo
+on:
+  workflow_dispatch:
+jobs:
+  matrix-test:
+    name: Test on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        node-version:
+          - 16
+          - 18
+          - 120
+    steps:
+      - name: checkout the code
+        uses: actions/chekout@v4
+      - name: set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: install dependencies
+        run: npm install
+        working-directory: Day-06 Matrix Strategy/example
+      - name: run tests
+        run: npm test
+        working-directory: Day-06 Matrix Strategy/example
+      - name: display environment information
+        run: |
+          echo "Operating System: ${{ matrix.os }}"
+          echo "Node.js Version: ${{ matrix.node-version }}"
+          node -v
