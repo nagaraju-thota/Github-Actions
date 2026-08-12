@@ -15,7 +15,7 @@ jobs:
         node-version:
           - 16
           - 18
-          - 120
+          - 20
     steps:
       - name: checkout the code
         uses: actions/checkout@v4
