@@ -18,7 +18,7 @@ jobs:
           - 120
     steps:
       - name: checkout the code
-        uses: actions/chekout@v4
+        uses: actions/checkout@v4
       - name: set up Node.js
         uses: actions/setup-node@v4
         with:
