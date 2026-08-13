@@ -20,6 +20,7 @@ jobs:
     name: deploy to staging environment
     runs-on: ubuntu-latest
     environment: staging
+    needs: dev
     steps:
       - name: checkout the code
         uses: actions/checkout@v4
@@ -32,6 +33,7 @@ jobs:
     name: deploy to production environment
     runs-on: ubuntu-latest
     environment: production
+    needs: staging
     steps:
       - name: checkout the code
         uses: actions/checkout@v4
