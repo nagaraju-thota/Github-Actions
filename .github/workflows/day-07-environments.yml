@@ -1,0 +1,59 @@
+name: Day-07 GitHub Environments
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  dev:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Dev
+        run: |
+          echo "Deploying application to DEV environment..."
+          echo "Environment: DEV"
+          echo "Deployment completed successfully."
+
+  staging:
+    name: Deploy to Staging
+    needs: dev
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Staging
+        run: |
+          echo "Deploying application to STAGING environment..."
+          echo "Environment: STAGING"
+          echo "Deployment completed successfully."
+
+  production:
+    name: Deploy to Production
+    needs: staging
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Production
+        run: |
+          echo "Deploying application to PRODUCTION environment..."
+          echo "Environment: PRODUCTION"
+          echo "Deployment completed successfully."
