@@ -1,59 +1,42 @@
-name: Day-07 GitHub Environments
-
+name: day-07-environments
 on:
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
-
   dev:
-    name: Deploy to Dev
+    name: deploy to dev environment
     runs-on: ubuntu-latest
-    environment:
-      name: dev
-
+    environment: dev
     steps:
-      - name: Checkout code
+      - name: checkout the code
         uses: actions/checkout@v4
-
-      - name: Deploy to Dev
+      - name: deploy to dev environment
         run: |
-          echo "Deploying application to DEV environment..."
-          echo "Environment: DEV"
-          echo "Deployment completed successfully."
-
+          echo "deploying to dev environment"
+          echo "environment name: dev"
+          echo "deploying to dev environment successfully"
   staging:
-    name: Deploy to Staging
-    needs: dev
+    name: deploy to staging environment
     runs-on: ubuntu-latest
-    environment:
-      name: staging
-
+    environment: staging
     steps:
-      - name: Checkout code
+      - name: checkout the code
         uses: actions/checkout@v4
-
-      - name: Deploy to Staging
+      - name: deploy to staging environment
         run: |
-          echo "Deploying application to STAGING environment..."
-          echo "Environment: STAGING"
-          echo "Deployment completed successfully."
-
+          echo "deploying to staging environment"
+          echo "environment name: staging"
+          echo "deploying to staging environment successfully"
   production:
-    name: Deploy to Production
-    needs: staging
+    name: deploy to production environment
     runs-on: ubuntu-latest
-    environment:
-      name: production
-
+    environment: production
     steps:
-      - name: Checkout code
+      - name: checkout the code
         uses: actions/checkout@v4
-
-      - name: Deploy to Production
+      - name: deploy to production environment
         run: |
-          echo "Deploying application to PRODUCTION environment..."
-          echo "Environment: PRODUCTION"
-          echo "Deployment completed successfully."
+          echo "deploying to production environment"
+          echo "environment name: production"
+          echo "deploying to production environment successfully"
