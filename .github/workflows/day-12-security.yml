@@ -1,8 +1,13 @@
 name: Day 12 - Code Quality and Security
 
 on:
-  workflow_dispatch:
-    
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -31,15 +36,12 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        working-directory: example
         run: npm install
 
       - name: Run ESLint
-        working-directory: example
         run: npm run lint
 
       - name: Run Tests
-        working-directory: example
         run: npm test
 
 
@@ -64,12 +66,10 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        working-directory: example
         run: npm install
 
       # Dependency Security Scan
       - name: Dependency Scan
-        working-directory: example
         run: npm audit --audit-level=high
 
       # Code Security Scan
@@ -83,7 +83,6 @@ jobs:
 
       # Build Docker Image
       - name: Build Docker Image
-        working-directory: example
         run: docker build -t day12-security:latest .
 
       # Docker Image Security Scan
