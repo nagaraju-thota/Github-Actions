@@ -1,0 +1,13 @@
+{
+  "name": "day-12-security-demo",
+  "version": "1.0.0",
+  "description": "Day 12 Code Quality and Security Scanning Demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

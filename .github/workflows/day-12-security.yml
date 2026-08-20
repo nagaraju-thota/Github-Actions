@@ -1,0 +1,118 @@
+name: Day 12 - Code Quality and Security
+
+on:
+  workflow_dispatch:
+    
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+
+  # ==========================================
+  # CODE QUALITY
+  # ==========================================
+
+  code-quality:
+
+    name: Code Quality Analysis
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        working-directory: example
+        run: npm install
+
+      - name: Run ESLint
+        working-directory: example
+        run: npm run lint
+
+      - name: Run Tests
+        working-directory: example
+        run: npm test
+
+
+  # ==========================================
+  # SECURITY SCAN
+  # ==========================================
+
+  security-scan:
+
+    name: Security Scanning
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        working-directory: example
+        run: npm install
+
+      # Dependency Security Scan
+      - name: Dependency Scan
+        working-directory: example
+        run: npm audit --audit-level=high
+
+      # Code Security Scan
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      # Build Docker Image
+      - name: Build Docker Image
+        working-directory: example
+        run: docker build -t day12-security:latest .
+
+      # Docker Image Security Scan
+      - name: Trivy Security Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: day12-security:latest
+          severity: HIGH,CRITICAL
+          exit-code: 1
+
+
+  # ==========================================
+  # DEPLOY
+  # ==========================================
+
+  deploy:
+
+    name: Deploy
+
+    needs:
+      - code-quality
+      - security-scan
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deployment
+        run: echo "Code quality and security checks passed!"
