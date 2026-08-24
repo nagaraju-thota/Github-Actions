@@ -54,16 +54,6 @@ jobs:
           name: day14-app
           path: Day-14-reusable-workflows/example/day14-app.tar.gz
 
-      - name: Upload Artifact to JFrog Artifactory
-        env:
-          JFROG_URL: ${{ secrets.JFROG_URL }}
-          JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
-          JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
-        run: |
-          curl -u "$JFROG_USERNAME:$JFROG_PASSWORD" \
-            -T day14-app.tar.gz \
-            "$JFROG_URL/day14-repo/day14-app-${{ github.sha }}.tar.gz"
-
       - name: Set Build Status
         id: build-status
         run: echo "status=success" >> "$GITHUB_OUTPUT"
