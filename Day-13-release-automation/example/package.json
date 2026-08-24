@@ -1,0 +1,9 @@
+{
+  "name": "day-13-release-automation",
+  "version": "1.0.0",
+  "description": "Release automation demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
