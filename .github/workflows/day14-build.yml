@@ -9,17 +9,9 @@ on:
         type: string
         default: "18"
 
-    outputs:
-      build-status:
-        description: "Build status"
-        value: ${{ jobs.build.outputs.status }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    outputs:
-      status: ${{ steps.build-status.outputs.status }}
 
     defaults:
       run:
@@ -41,7 +33,3 @@ jobs:
         run: |
           echo "Building application..."
           node --check app.js
-
-      - name: Set Build Status
-        id: build-status
-        run: echo "status=success" >> "$GITHUB_OUTPUT"

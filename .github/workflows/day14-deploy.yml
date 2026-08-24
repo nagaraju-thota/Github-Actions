@@ -1,0 +1,20 @@
+name: Day 14 - Shared Deploy Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Application
+        run: |
+          echo "Deploying application..."
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Deployment successful!"

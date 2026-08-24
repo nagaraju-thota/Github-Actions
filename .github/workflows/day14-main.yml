@@ -2,11 +2,11 @@ name: Day 14 - Reusable Workflows
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "Day-14-reusable-workflows/**"
       - ".github/workflows/day14-*.yml"
-    branches:
-      - main
 
 jobs:
 
