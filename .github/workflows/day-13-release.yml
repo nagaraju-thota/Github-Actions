@@ -1,17 +1,23 @@
-name: Day-13 Release automation
+name: Release Automation
+
 on:
   push:
     tags:
       - "v*.*.*"
+
 permissions:
   contents: write
+
 jobs:
   release:
-    name: create release
+    name: Create Release
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Generate Changelog
         run: |
@@ -20,15 +26,11 @@ jobs:
           echo "## Changes" >> CHANGELOG.md
           git log --pretty=format:"- %s" -n 10 >> CHANGELOG.md
 
-      - name: Create Release Artifact
+      - name: Create Repository Artifact
         run: |
-          mkdir release
-          cp app.js release/
-          cp package.json release/
-          cp CHANGELOG.md release/
-
-          cd release
-          zip -r ../release-${{ github.ref_name }}.zip .
+          zip -r release-${{ github.ref_name }}.zip . \
+            -x ".git/*" \
+            -x "release-${{ github.ref_name }}.zip"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
