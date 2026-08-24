@@ -1,0 +1,10 @@
+{
+  "name": "day-14-reusable-workflows",
+  "version": "1.0.0",
+  "description": "GitHub Actions Reusable Workflows Demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,28 @@
+name: Day 14 - Reusable Workflows
+
+on:
+  push:
+    paths:
+      - "Day-14-reusable-workflows/**"
+      - ".github/workflows/day14-*.yml"
+    branches:
+      - main
+
+jobs:
+
+  test:
+    uses: ./.github/workflows/day14-test.yml
+    with:
+      node-version: "18"
+
+  build:
+    needs: test
+    uses: ./.github/workflows/day14-build.yml
+    with:
+      node-version: "18"
+
+  deploy:
+    needs: build
+    uses: ./.github/workflows/day14-deploy.yml
+    with:
+      environment: "staging"

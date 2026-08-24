@@ -1,0 +1,47 @@
+name: Day 14 - Shared Build Workflow
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: "Node.js version"
+        required: false
+        type: string
+        default: "18"
+
+    outputs:
+      build-status:
+        description: "Build status"
+        value: ${{ jobs.build.outputs.status }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      status: ${{ steps.build-status.outputs.status }}
+
+    defaults:
+      run:
+        working-directory: Day-14-reusable-workflows/example
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: |
+          echo "Building application..."
+          node --check app.js
+
+      - name: Set Build Status
+        id: build-status
+        run: echo "status=success" >> "$GITHUB_OUTPUT"

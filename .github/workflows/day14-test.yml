@@ -1,0 +1,29 @@
+name: Day 14 - Reusable Workflows Test
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: "Node js version"
+        type: string
+        required: false
+        default: "18"
+jobs:
+  test:
+    runs-on: ubuntu
+    defaults:
+      run:
+        working-directory: Day-14-reusable-workflows/example
+    steps:
+      - name: checkout the code
+        run: actions/checkout@v4
+      
+      - name: setup node.js
+        run: actions/setup-node@v4
+        with:
+          node-version: ${{inputs.node-version}}
+
+      - name: install dependencies
+        run: npm install
+      
+      - name: run tests
+        run: npm test
